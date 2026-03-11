@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+* {
+    background: apply("bg-blue-500")
+}
