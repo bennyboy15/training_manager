@@ -4,14 +4,14 @@ import { DynamicIcon } from "lucide-react/dynamic";
 
 const menuItems = [
   { menuID: 1, menuTitle: "Dashboard", navigation: "/", menuIcon: "layout-dashboard" as const },
-  { menuID: 2, menuTitle: "Worksheets", navigation: "/worksheet", menuIcon: "pickaxe" as const },
-  { menuID: 3, menuTitle: "Schedule", navigation: "/schedule", menuIcon: "calendar-days" as const },
-  { menuID: 4, menuTitle: "Parts", navigation: "/parts", menuIcon: "package" as const },
-  { menuID: 5, menuTitle: "Admin", navigation: "/admin", menuIcon: "shield-user" as const },
-  { menuID: 6, menuTitle: "Components", navigation: "/showcase", menuIcon: "component" as const },
+  { menuID: 2, menuTitle: "Modules", navigation: "/modules", menuIcon: "blocks" as const },
+  { menuID: 3, menuTitle: "Sessions", navigation: "/sessions", menuIcon: "presentation" as const },
+  { menuID: 4, menuTitle: "Schedule", navigation: "/schedule", menuIcon: "calendar" as const },
+  { menuID: 5, menuTitle: "Admin", navigation: "/admin", menuIcon: "shield-ellipsis" as const },
+  { menuID: 6, menuTitle: "Components", navigation: "/showcase", menuIcon: "spotlight" as const },
 ];
 
-function TopNav() {
+function NavBar() {
   const [selectedMenu, setSelectedMenu] = useState<number>(1);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -23,7 +23,7 @@ function TopNav() {
 
         {/* Logo */}
         <div className="text-lg font-semibold tracking-tight text-gray-800">
-          My App
+          Training Manager
         </div>
 
         {/* Desktop Menu */}
@@ -115,4 +115,4 @@ function TopNav() {
   );
 }
 
-export default TopNav;
+export default NavBar;
