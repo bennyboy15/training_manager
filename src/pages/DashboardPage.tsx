@@ -1,3 +1,4 @@
+import Header from "../components/Header";
 import StatCard from "../components/StatCard";
 
 function DashboardPage() {
@@ -6,15 +7,7 @@ function DashboardPage() {
     
       <main className="flex-1 flex flex-col p-6 lg:p-10 gap-8">
         
-        {/* HEADER */}
-        <header className="flex flex-col gap-1">
-          <h1 className="text-gray-900 font-extrabold text-3xl tracking-tight">
-            Dashboard Overview
-          </h1>
-          <p className="text-gray-500 font-medium">
-            Real-time monitoring of organisational business processes.
-          </p>
-        </header>
+        <Header title={"Dashboard Overview"} subtitle="Real-time monitoring of organisational business processes."/>
 
         {/* STATS SECTION */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -4,11 +4,12 @@ import { DynamicIcon } from "lucide-react/dynamic";
 
 const menuItems = [
   { menuID: 1, menuTitle: "Dashboard", navigation: "/", menuIcon: "layout-dashboard" as const },
-  { menuID: 2, menuTitle: "Modules", navigation: "/modules", menuIcon: "blocks" as const },
-  { menuID: 3, menuTitle: "Sessions", navigation: "/sessions", menuIcon: "presentation" as const },
-  { menuID: 4, menuTitle: "Schedule", navigation: "/schedule", menuIcon: "calendar" as const },
-  { menuID: 5, menuTitle: "Admin", navigation: "/admin", menuIcon: "shield-ellipsis" as const },
-  { menuID: 6, menuTitle: "Components", navigation: "/showcase", menuIcon: "spotlight" as const },
+  { menuID: 2, menuTitle: "Employees", navigation: "/employees", menuIcon: "users" as const },
+  { menuID: 3, menuTitle: "Modules", navigation: "/modules", menuIcon: "blocks" as const },
+  { menuID: 4, menuTitle: "Sessions", navigation: "/sessions", menuIcon: "presentation" as const },
+  { menuID: 5, menuTitle: "Schedule", navigation: "/schedule", menuIcon: "calendar" as const },
+  { menuID: 6, menuTitle: "Admin", navigation: "/admin", menuIcon: "shield-ellipsis" as const },
+  { menuID: 7, menuTitle: "Components", navigation: "/showcase", menuIcon: "spotlight" as const },
 ];
 
 function NavBar() {

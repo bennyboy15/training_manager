@@ -7,6 +7,8 @@ import AdminPage from "./pages/AdminPage.tsx"
 import NavBar from "./components/NavBar.tsx";
 import ModulesPage from "./pages/ModulesPage.tsx";
 import SessionsPage from "./pages/SessionsPage.tsx";
+import EmployeesPage from "./pages/Employees/EmployeesPage.tsx";
+import EmployeesNewPage from "./pages/Employees/EmployeesNewPage.tsx";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/modules" element={<ModulesPage />} />
           <Route path="/sessions" element={<SessionsPage />} />
+          <Route path="/employees" element={<EmployeesPage />} />
+          <Route path="/employees/new" element={<EmployeesNewPage />} />
           <Route path="/schedule" element={<SchedulingPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/showcase" element={<ComponentShowcase />} />
