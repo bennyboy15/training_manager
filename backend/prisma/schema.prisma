@@ -12,9 +12,198 @@ datasource db {
   provider = "postgresql"
 }
 
-model User { 
-  id    Int     @id @default(autoincrement()) 
-  email String  @unique
-  name  String?
-  role String?
-} 
+enum UserRole {
+  ADMIN
+  MANAGER
+  TRAINER
+  EMPLOYEE
+}
+
+enum TrainingType {
+  ONLINE
+  IN_PERSON
+}
+
+enum AssignmentStatus {
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  OVERDUE
+}
+
+enum AttendanceStatus {
+  REGISTERED
+  ATTENDED
+  ABSENT
+}
+
+enum ResourceType {
+  VIDEO
+  PDF
+  DOCUMENT
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         UserRole
+  createdAt    DateTime @default(now())
+
+  employee     Employee?
+
+  createdModules Module[] @relation("ModuleCreator")
+  createdKits    Kit[]    @relation("KitCreator")
+
+  assignedTrainings Assignment[] @relation("AssignedBy")
+
+  sessionsTaught Session[]
+
+  notifications Notification[]
+  auditLogs     AuditLog[]
+}
+model Employee {
+  id         String   @id @default(uuid())
+  userId     String?  @unique
+  firstName  String
+  lastName   String
+  department String?
+  jobTitle   String?
+  hireDate   DateTime?
+  status     String   @default("active")
+  createdAt  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  assignments      Assignment[]
+  trainingRecords  TrainingRecord[]
+  sessionAttendees SessionAttendee[]
+}
+model Module {
+  id              String       @id @default(uuid())
+  title           String
+  description     String?
+  durationMinutes Int?
+  trainingType    TrainingType?
+  expiryMonths    Int?
+  createdAt       DateTime     @default(now())
+
+  createdById String
+  createdBy   User @relation("ModuleCreator", fields: [createdById], references: [id])
+
+  assignments Assignment[]
+  sessions    Session[]
+
+  kitModules KitModule[]
+
+  resources ModuleResource[]
+
+  trainingRecords TrainingRecord[]
+}
+model Kit {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+
+  createdById String
+  createdBy   User @relation("KitCreator", fields: [createdById], references: [id])
+
+  modules KitModule[]
+}
+model KitModule {
+  id String @id @default(uuid())
+
+  kitId    String
+  moduleId String
+
+  kit    Kit    @relation(fields: [kitId], references: [id], onDelete: Cascade)
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@unique([kitId, moduleId])
+}
+model Assignment {
+  id         String           @id @default(uuid())
+  dueDate    DateTime?
+  status     AssignmentStatus @default(ASSIGNED)
+  assignedAt DateTime         @default(now())
+
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+
+  moduleId String
+  module   Module @relation(fields: [moduleId], references: [id])
+
+  assignedById String
+  assignedBy   User @relation("AssignedBy", fields: [assignedById], references: [id])
+}
+model Session {
+  id        String   @id @default(uuid())
+  location  String?
+  startTime DateTime
+  endTime   DateTime
+  capacity  Int?
+  createdAt DateTime @default(now())
+
+  moduleId String
+  module   Module @relation(fields: [moduleId], references: [id])
+
+  trainerId String
+  trainer   User @relation(fields: [trainerId], references: [id])
+
+  attendees SessionAttendee[]
+}
+model SessionAttendee {
+  id String @id @default(uuid())
+
+  attendanceStatus AttendanceStatus @default(REGISTERED)
+
+  sessionId  String
+  employeeId String
+
+  session  Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@unique([sessionId, employeeId])
+}
+model TrainingRecord {
+  id           String   @id @default(uuid())
+  completedAt  DateTime
+  expiryDate   DateTime?
+  certificateUrl String?
+
+  employeeId String
+  moduleId   String
+
+  employee Employee @relation(fields: [employeeId], references: [id])
+  module   Module   @relation(fields: [moduleId], references: [id])
+}
+model ModuleResource {
+  id        String       @id @default(uuid())
+  resourceType ResourceType
+  fileUrl   String
+  createdAt DateTime @default(now())
+
+  moduleId String
+  module   Module @relation(fields: [moduleId], references: [id])
+}
+model Notification {
+  id        String   @id @default(uuid())
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+}
+model AuditLog {
+  id         String   @id @default(uuid())
+  action     String
+  entityType String
+  entityId   String
+  createdAt  DateTime @default(now())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+}
