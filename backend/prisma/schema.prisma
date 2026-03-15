@@ -48,7 +48,7 @@ model User {
   name         String
   email        String   @unique
   passwordHash String
-  role         UserRole
+  role         UserRole @default(EMPLOYEE)
   createdAt    DateTime @default(now())
 
   employee     Employee?

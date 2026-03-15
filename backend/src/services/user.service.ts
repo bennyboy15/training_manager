@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import type { updateUserData } from "../types/user.types";
+import type { createUserInput, updateUserInput } from "../types/user.types";
 
 export async function getUsers() {
   return prisma.user.findMany({
@@ -21,9 +21,9 @@ export async function getUser(id:string) {
   });
 }
 
-export async function createUser(name: string, email: string, role:string="EMPLOYEE") {
+export async function createUser(data: createUserInput) {
   return prisma.user.create({
-    data: { name, email, role },
+    data: data,
     omit: {
       password: true
     }
@@ -40,7 +40,7 @@ export async function deleteUser(id:string){
   })
 }
 
-export async function updateUser(id:string, data: updateUserData) {
+export async function updateUser(id:string, data: updateUserInput) {
   return prisma.user.update({
     where: {id},
     data: data,
