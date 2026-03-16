@@ -8,6 +8,9 @@ export const userSchema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
 });
+export type CreateUserInput = z.infer<typeof userSchema>;
+export type UpdateUserInput = Partial<CreateUserInput>;
+export const updateUserSchema = userSchema.partial();
 
 export const employeeSchema = z.object({
   userId: z.string().uuid(),
@@ -17,6 +20,8 @@ export const employeeSchema = z.object({
   jobTitle: z.string().optional(),
   hireDate: z.date().optional()
 });
+export type CreateEmployeeInput = z.infer<typeof employeeSchema>;
+export type UpdateEmployeeInput = Partial<CreateEmployeeInput>;
 
 export const moduleSchema = z.object({
   userId: z.string().uuid(),
@@ -28,3 +33,4 @@ export const moduleSchema = z.object({
 });
 export type CreateModuleInput = z.infer<typeof moduleSchema>;
 export type UpdateModuleInput = Partial<CreateModuleInput>;
+export const updateModuleSchema = moduleSchema.partial();

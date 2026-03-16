@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as moduleService from "../services/module.service"
 import { getIdParamsSchema } from "../schemas/zodSchemas";
-import { moduleSchema } from "../schemas/zodSchemas";
+import { moduleSchema, updateModuleSchema } from "../schemas/zodSchemas";
 
 export async function getModules(req:Request, res:Response, next:NextFunction) {
     try {
@@ -32,7 +32,6 @@ export async function createModule(req:Request, res:Response, next:NextFunction)
     }
 }
 
-export const updateModuleSchema = moduleSchema.partial();
 export async function updateModule(req:Request, res:Response, next:NextFunction) {
     try {
         const {id} = getIdParamsSchema.parse(req.params);

@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import type { createUserInput, updateUserInput } from "../types/user.types";
+import type { CreateUserInput, UpdateUserInput } from "../schemas/zodSchemas";
 
 export async function getUsers() {
   return prisma.user.findMany({
@@ -13,15 +13,17 @@ export async function getUsers() {
 }
 
 export async function getUser(id:string) {
-  return prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {id:id},
     omit: {
       password: true
     }
   });
+  if (!user) throw new Error("User not found");
+  return user;
 }
 
-export async function createUser(data: createUserInput) {
+export async function createUser(data: CreateUserInput) {
   return prisma.user.create({
     data: data,
     omit: {
@@ -40,7 +42,7 @@ export async function deleteUser(id:string){
   })
 }
 
-export async function updateUser(id:string, data: updateUserInput) {
+export async function updateUser(id:string, data: UpdateUserInput) {
   return prisma.user.update({
     where: {id},
     data: data,
