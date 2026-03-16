@@ -17,3 +17,14 @@ export const employeeSchema = z.object({
   jobTitle: z.string().optional(),
   hireDate: z.date().optional()
 });
+
+export const moduleSchema = z.object({
+  userId: z.string().uuid(),
+  description: z.string().optional(),
+  durationMinutes: z.number().positive(),
+  trainingType: z.string().optional(),
+  expiryMonths: z.number().int().nonnegative(),
+  hireDate: z.coerce.date().optional() 
+});
+export type CreateModuleInput = z.infer<typeof moduleSchema>;
+export type UpdateModuleInput = Partial<CreateModuleInput>;
