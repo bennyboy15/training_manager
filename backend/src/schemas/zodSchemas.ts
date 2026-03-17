@@ -34,3 +34,11 @@ export const moduleSchema = z.object({
 export type CreateModuleInput = z.infer<typeof moduleSchema>;
 export type UpdateModuleInput = Partial<CreateModuleInput>;
 export const updateModuleSchema = moduleSchema.partial();
+
+export const kitSchema = z.object({
+  name: z.string().min(1, "Kit name is required"),
+  description: z.string().optional()
+});
+export type CreateKitInput = z.infer<typeof kitSchema>;
+export type UpdateKitInput = Partial<CreateKitInput>;
+export const updateKitSchema = kitSchema.partial();
