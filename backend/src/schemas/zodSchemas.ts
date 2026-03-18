@@ -62,3 +62,16 @@ export const sessionSchema = z.object({
 export type CreateSessionInput = z.infer<typeof sessionSchema>;
 export type UpdateSessionInput = Partial<CreateSessionInput>;
 export const updateSessionSchema = sessionSchema.partial();
+
+export const assignmentSchema = z.object({
+  dueDate: z.coerce.date().optional(),
+
+  status: z.enum(["ASSIGNED", "IN_PROGRESS", "COMPLETED"]).optional(),
+
+  employeeId: z.string().uuid("Invalid employee ID"),
+  moduleId: z.string().uuid("Invalid module ID"),
+  assignedById: z.string().uuid("Invalid assignedBy ID"),
+});
+export type CreateAssignmentInput = z.infer<typeof assignmentSchema>;
+export type UpdateAssignmentInput = Partial<CreateAssignmentInput>;
+export const updateAssignmentSchema = assignmentSchema.partial();
