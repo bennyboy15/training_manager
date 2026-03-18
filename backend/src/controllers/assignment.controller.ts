@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as assignmentService from "../services/assignment.service";
-import { assignmentSchema, getIdParamsSchema, updateAssignmentSchema } from "../schemas/zodSchemas";
+import { createAssignmentSchema, getIdParamsSchema, updateAssignmentSchema } from "../schemas/zodSchemas";
 
 export async function getAssignments(req:Request, res:Response, next:NextFunction){
     try {
@@ -23,7 +23,7 @@ export async function getAssignment(req:Request, res:Response, next:NextFunction
 
 export async function createAssignment(req:Request, res:Response, next:NextFunction){
     try {
-        const data = assignmentSchema.parse(req.body);
+        const data = createAssignmentSchema.parse(req.body);
         const assignment = await assignmentService.createAssignment(data);
         return res.status(201).json(assignment);
     } catch (error) {

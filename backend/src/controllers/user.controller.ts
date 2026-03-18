@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as userService from "../services/user.service";
-import { userSchema, getIdParamsSchema, updateUserSchema } from "../schemas/zodSchemas";
+import { createUserSchema, getIdParamsSchema, updateUserSchema } from "../schemas/zodSchemas";
 
 export async function getUsers(req: Request, res: Response, next: NextFunction) {
   try {
@@ -24,14 +24,8 @@ export async function getUser(req: Request, res: Response, next: NextFunction) {
 
 export async function createUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const result = userSchema.safeParse(req.body);
-    if (!result.success) {
-      return res.status(400).json({
-        error: result.error.flatten(),
-      });
-    }
-    const { name, email } = result.data;
-    const user = await userService.createUser({ name, email });
+    const data = createUserSchema.parse(req.body);
+    const user = await userService.createUser(data);
     res.status(201).json(user);
   } catch (error) {
     next(error);

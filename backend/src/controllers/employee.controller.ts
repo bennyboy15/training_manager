@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as employeeService from "../services/employee.service";
-import { employeeSchema, getIdParamsSchema } from "../schemas/zodSchemas";
+import { createEmployeeSchema, getIdParamsSchema, updateEmployeeSchema } from "../schemas/zodSchemas";
 
 export async function getEmployees(req: Request, res: Response, next:NextFunction) {
     try {
@@ -23,7 +23,7 @@ export async function getEmployee(req: Request, res: Response, next:NextFunction
 
 export async function createEmployee(req:Request, res:Response, next:NextFunction) {
     try {
-        const validatedData = employeeSchema.parse(req.body); // throws error for us, so we can let errorHandler deal with it
+        const validatedData = createEmployeeSchema.parse(req.body); // throws error for us, so we can let errorHandler deal with it
         const employee = await employeeService.createEmployee(validatedData);
         res.json(employee);
     } catch (error) {
@@ -31,7 +31,6 @@ export async function createEmployee(req:Request, res:Response, next:NextFunctio
     }
 }
 
-const updateEmployeeSchema = employeeSchema.partial();
 export async function updateEmployee(req:Request, res:Response, next:NextFunction) {
     try {
         const {id} = getIdParamsSchema.parse(req.params.id);

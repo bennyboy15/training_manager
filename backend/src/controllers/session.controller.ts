@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as sessionService from "../services/session.service"
-import { getIdParamsSchema, sessionSchema, updateSessionSchema } from "../schemas/zodSchemas";
+import { getIdParamsSchema, createSessionSchema, updateSessionSchema } from "../schemas/zodSchemas";
 
 export async function getSessions(req: Request, res: Response, next: NextFunction) {
     try {
@@ -23,7 +23,7 @@ export async function getSession(req: Request, res: Response, next: NextFunction
 
 export async function createSession(req: Request, res: Response, next: NextFunction) {
     try {
-        const data = sessionSchema.parse(req.body);
+        const data = createSessionSchema.parse(req.body);
         const session = await sessionService.createSession(data);
         return res.status(201).json(session);
     } catch (error) {

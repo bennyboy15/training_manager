@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as kitService from "../services/kit.service"
-import { getIdParamsSchema, kitSchema, updateKitSchema } from "../schemas/zodSchemas";
+import { getIdParamsSchema, createKitSchema, updateKitSchema } from "../schemas/zodSchemas";
 
 export async function getKits(req:Request, res:Response, next:NextFunction) {
     try {
@@ -23,7 +23,7 @@ export async function getKit(req:Request, res:Response, next:NextFunction) {
 
 export async function createKit(req:Request, res:Response, next:NextFunction) {
     try {
-        const data = kitSchema.parse(req.body);
+        const data = createKitSchema.parse(req.body);
         const kit = await kitService.createKit(data);
         return res.status(201).json(kit);
     } catch (error) {
