@@ -42,3 +42,23 @@ export const kitSchema = z.object({
 export type CreateKitInput = z.infer<typeof kitSchema>;
 export type UpdateKitInput = Partial<CreateKitInput>;
 export const updateKitSchema = kitSchema.partial();
+
+export const sessionSchema = z.object({
+  location: z.string().optional(),
+
+  startTime: z.coerce.date("Invalid start time"),
+
+  endTime: z.coerce.date("Invalid end time"),
+
+  capacity: z.number().int().positive().optional(),
+
+  moduleId: z.string().uuid("Invalid module ID"),
+  trainerId: z.string().uuid("Invalid trainer ID"),
+})
+.refine((data) => data.endTime > data.startTime, {
+  message: "End time must be after start time",
+  path: ["endTime"],
+});
+export type CreateSessionInput = z.infer<typeof sessionSchema>;
+export type UpdateSessionInput = Partial<CreateSessionInput>;
+export const updateSessionSchema = sessionSchema.partial();

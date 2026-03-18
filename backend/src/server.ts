@@ -5,6 +5,7 @@ import userRoutes from "./routes/user.routes";
 import employeeRoutes from "./routes/employee.routes";
 import moduleRoutes from "./routes/module.routes";
 import kitRoutes from "./routes/kit.routes";
+import sessionRoutes from "./routes/session.routes";
 import { errorHandler } from "./lib/errorHandler";
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use("/users", userRoutes);
 app.use("/employees", employeeRoutes);
 app.use("/modules", moduleRoutes);
 app.use("/kits", kitRoutes);
+app.use("/sessions", sessionRoutes);
 
 const PORT = process.env.PORT || 3000;
 
