@@ -93,7 +93,6 @@ export const createKitModuleSchema = z.object({
   moduleId: z.string().uuid()
 });
 export type CreateKitModuleInput = z.infer<typeof createKitModuleSchema>;
-export type UpdateKitModuleInput = Partial<CreateKitModuleInput>;
 
 /* =========================
    ASSIGNMENT

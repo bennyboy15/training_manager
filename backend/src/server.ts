@@ -6,6 +6,7 @@ import employeeRoutes from "./routes/employee.routes";
 import moduleRoutes from "./routes/module.routes";
 import kitRoutes from "./routes/kit.routes";
 import sessionRoutes from "./routes/session.routes";
+import kitModuleRoutes from "./routes/kitModule.routes";
 import assignmentRoutes from "./routes/assignment.routes";
 import { errorHandler } from "./lib/errorHandler";
 
@@ -24,6 +25,7 @@ app.use("/modules", moduleRoutes);
 app.use("/kits", kitRoutes);
 app.use("/sessions", sessionRoutes);
 app.use("/assignments", assignmentRoutes);
+app.use("/kitModules", kitModuleRoutes);
 
 const PORT = process.env.PORT || 3000;
 
