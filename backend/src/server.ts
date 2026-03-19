@@ -11,6 +11,7 @@ import kitModuleRoutes from "./routes/kitModule.routes";
 import assignmentRoutes from "./routes/assignment.routes";
 import sessionAttendeeRoutes from "./routes/sessionAttendee.routes";
 import notificationRoutes from "./routes/notification.routes";
+import statRoutes from "./routes/stats.routes";
 import { apiLimiter } from "./middleware/rateLimiter";
 import { errorHandler } from "./lib/errorHandler";
 
@@ -25,16 +26,17 @@ app.use(errorHandler);
 app.use(apiLimiter); // Global rate limiter
 
 // -- ROUTES -- 
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
-app.use("/employees", employeeRoutes);
-app.use("/modules", moduleRoutes);
-app.use("/kits", kitRoutes);
-app.use("/sessions", sessionRoutes);
-app.use("/assignments", assignmentRoutes);
-app.use("/kits/:kitId/modules", kitModuleRoutes);
-app.use("/sessions/:sessionId/attendees", sessionAttendeeRoutes);
-app.use("/notifications", notificationRoutes);
+app.use("api/v1/auth", authRoutes);
+app.use("api/v1/users", userRoutes);
+app.use("api/v1/employees", employeeRoutes);
+app.use("api/v1/modules", moduleRoutes);
+app.use("api/v1/kits", kitRoutes);
+app.use("api/v1/sessions", sessionRoutes);
+app.use("api/v1/assignments", assignmentRoutes);
+app.use("api/v1/kits/:kitId/modules", kitModuleRoutes);
+app.use("api/v1/sessions/:sessionId/attendees", sessionAttendeeRoutes);
+app.use("api/v1/notifications", notificationRoutes);
+app.use("api/v1/stats", statRoutes);
 
 const PORT = process.env.PORT || 3000;
 

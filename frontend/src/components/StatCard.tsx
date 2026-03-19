@@ -2,7 +2,7 @@ import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 
 interface StatCardProps {
   title: string;
-  value: string | number;
+  value: string | number | undefined;
   trend?: string;
   color?: "green" | "red" | "orange" | "blue";
   icon: IconName;

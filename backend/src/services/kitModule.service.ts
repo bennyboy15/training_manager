@@ -1,11 +1,11 @@
 import { prisma } from "../../lib/prisma";
 import { CreateKitModuleInput } from "../schemas/zodSchemas";
 
-export async function getKitModules(){
+export async function getKitModules(kitId: string){
     return prisma.kitModule.findMany();
 }
 
-export async function getKitModule(id:string){
+export async function getKitModule(kitId: string, id:string){
     const kitModule = await prisma.kitModule.findUnique({
         where: {id:id}
     });
@@ -13,9 +13,12 @@ export async function getKitModule(id:string){
     return kitModule
 }
 
-export async function createKitModule(data: CreateKitModuleInput) {
+export async function createKitModule(kitId: string, data: CreateKitModuleInput) {
     return prisma.kitModule.create({
-        data:data
+        data: {
+            ...data,
+            kitId: kitId
+        }
     })
 }
 
