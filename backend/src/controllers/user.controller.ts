@@ -5,7 +5,7 @@ import { createUserSchema, getIdParamsSchema, updateUserSchema } from "../schema
 export async function getUsers(req: Request, res: Response, next: NextFunction) {
   try {
     const users = await userService.getUsers();
-    res.json(users);
+    res.status(200).json(users);
   } catch (error) {
     next(error);
   }
@@ -16,7 +16,7 @@ export async function getUser(req: Request, res: Response, next: NextFunction) {
     const { id } = getIdParamsSchema.parse(req.params);
     const user = await userService.getUser(id);
     if (!user) return res.status(404).json({ message: "User not found" });
-    return res.json(user);
+    return res.status(200).json(user);
   } catch (error) {
     next(error);
   }
@@ -37,7 +37,7 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
     const { id } = getIdParamsSchema.parse(req.params);
     const data = updateUserSchema.parse(req.body);
     const user = await userService.updateUser(id, data);
-    return res.json(user);
+    return res.status(200).json(user);
   } catch (error) {
     next(error);
   }

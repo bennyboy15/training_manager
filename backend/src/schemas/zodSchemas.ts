@@ -24,6 +24,24 @@ export const assignmentStatusSchema = z.nativeEnum(AssignmentStatus);
 export const attendanceStatusSchema = z.nativeEnum(AttendanceStatus);
 export const resourceTypeSchema = z.nativeEnum(ResourceType);
 
+
+/* =========================
+   AUTH USER
+========================= */
+export const signupSchema = z.zod.object({
+    name: z.string().min(2),
+    email: z.string().email(),
+    password: z.string().min(8),
+});
+
+export const loginSchema = z.zod.object({
+    email: z.string().email(),
+    password: z.string(),
+});
+
+export type SignupInput = z.infer<typeof signupSchema>;
+export type LoginInput = z.infer<typeof loginSchema>;
+
 /* =========================
    USER
 ========================= */

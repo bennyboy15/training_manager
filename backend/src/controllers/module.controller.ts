@@ -6,7 +6,7 @@ import { createModuleSchema, updateModuleSchema } from "../schemas/zodSchemas";
 export async function getModules(req:Request, res:Response, next:NextFunction) {
     try {
         const modules = await moduleService.getModules();
-        res.json(modules);
+        res.status(200).json(modules);
     } catch (error) {
         next(error);
     }
@@ -16,7 +16,7 @@ export async function getModule(req:Request, res:Response, next:NextFunction) {
     try {
         const {id} = getIdParamsSchema.parse(req.params);
         const module = await moduleService.getModule(id);
-        res.json(module);
+        res.status(200).json(module);
     } catch (error) {
         next(error);
     }

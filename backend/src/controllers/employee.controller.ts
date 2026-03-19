@@ -5,7 +5,7 @@ import { createEmployeeSchema, getIdParamsSchema, updateEmployeeSchema } from ".
 export async function getEmployees(req: Request, res: Response, next:NextFunction) {
     try {
         const employees = await employeeService.getEmployees();
-        return res.json(employees);
+        return res.status(200).json(employees);
     } catch (error) {
         next(error)
     }
@@ -15,7 +15,7 @@ export async function getEmployee(req: Request, res: Response, next:NextFunction
     try {
         const {id} = getIdParamsSchema.parse(req.params.id);
         const employee = await employeeService.getEmployee(id);
-        return res.json(employee);
+        return res.status(200).json(employee);
     } catch (error) {
         next(error)
     }
@@ -25,7 +25,7 @@ export async function createEmployee(req:Request, res:Response, next:NextFunctio
     try {
         const validatedData = createEmployeeSchema.parse(req.body); // throws error for us, so we can let errorHandler deal with it
         const employee = await employeeService.createEmployee(validatedData);
-        res.json(employee);
+        res.status(201).json(employee);
     } catch (error) {
         next(error)
     }
@@ -36,7 +36,7 @@ export async function updateEmployee(req:Request, res:Response, next:NextFunctio
         const {id} = getIdParamsSchema.parse(req.params.id);
         const validatedData = updateEmployeeSchema.parse(req.body);
         const employee = await employeeService.updateEmployee(id,validatedData);
-        res.json(employee);
+        res.status(200).json(employee);
     } catch (error) {
         next(error)
     }

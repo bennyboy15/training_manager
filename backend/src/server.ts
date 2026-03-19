@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import employeeRoutes from "./routes/employee.routes";
 import moduleRoutes from "./routes/module.routes";
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(errorHandler);
 
 // -- ROUTES -- 
+app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/employees", employeeRoutes);
 app.use("/modules", moduleRoutes);
