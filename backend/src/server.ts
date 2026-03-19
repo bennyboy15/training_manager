@@ -9,8 +9,10 @@ import sessionRoutes from "./routes/session.routes";
 import kitModuleRoutes from "./routes/kitModule.routes";
 import assignmentRoutes from "./routes/assignment.routes";
 import sessionAttendeeRoutes from "./routes/sessionAttendee.routes";
+import notificationRoutes from "./routes/notification.routes";
 import { errorHandler } from "./lib/errorHandler";
 
+// -- APP --
 dotenv.config();
 const app = express();
 
@@ -28,6 +30,7 @@ app.use("/sessions", sessionRoutes);
 app.use("/assignments", assignmentRoutes);
 app.use("/kitModules", kitModuleRoutes);
 app.use("/sessionAttendees", sessionAttendeeRoutes);
+app.use("/notifications", notificationRoutes);
 
 const PORT = process.env.PORT || 3000;
 

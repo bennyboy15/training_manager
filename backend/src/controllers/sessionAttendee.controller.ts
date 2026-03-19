@@ -34,8 +34,8 @@ export async function createSessionAttendee(req:Request, res:Response, next:Next
 export async function deleteSessionAttendee(req:Request, res:Response, next:NextFunction){
     try {
         const {id} = getIdParamsSchema.parse(req.params);
-        const attendee = await sessionAttendeeService.deleteSessionAttendee(id);
-        return res.status(204).json(attendee);
+        await sessionAttendeeService.deleteSessionAttendee(id);
+        return res.sendStatus(204);
     } catch (error) {
         next(error);
     }
