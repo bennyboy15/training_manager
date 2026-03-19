@@ -8,6 +8,7 @@ import kitRoutes from "./routes/kit.routes";
 import sessionRoutes from "./routes/session.routes";
 import kitModuleRoutes from "./routes/kitModule.routes";
 import assignmentRoutes from "./routes/assignment.routes";
+import sessionAttendeeRoutes from "./routes/sessionAttendee.routes";
 import { errorHandler } from "./lib/errorHandler";
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use("/kits", kitRoutes);
 app.use("/sessions", sessionRoutes);
 app.use("/assignments", assignmentRoutes);
 app.use("/kitModules", kitModuleRoutes);
+app.use("/sessionAttendees", sessionAttendeeRoutes);
 
 const PORT = process.env.PORT || 3000;
 

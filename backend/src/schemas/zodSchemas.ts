@@ -138,7 +138,6 @@ export const createSessionAttendeeSchema = z.object({
   attendanceStatus: attendanceStatusSchema.optional()
 });
 export type CreateSessionAttendeeInput = z.infer<typeof createSessionAttendeeSchema>;
-export type UpdateSessionAttendeeInput = Partial<CreateSessionAttendeeInput>;
 
 /* =========================
    TRAINING RECORD
