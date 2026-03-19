@@ -5,8 +5,8 @@ import { protectRoute } from "../lib/protectRoute";
 const router = Router();
 
 router.get("/", protectRoute, sessionAttendeeController.getSessionAttendees);
-router.get("/:id", protectRoute, sessionAttendeeController.getSessionAttendee);
+router.get("/:attendeeId", protectRoute, sessionAttendeeController.getSessionAttendee);
 router.post("/", protectRoute, sessionAttendeeController.createSessionAttendee);
-router.delete("/:id", protectRoute, sessionAttendeeController.deleteSessionAttendee);
+router.delete("/:attendeeId", protectRoute, sessionAttendeeController.deleteSessionAttendee);
 
 export default router;

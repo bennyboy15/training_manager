@@ -13,8 +13,8 @@ export async function getSessionAttendees(req:Request, res:Response, next:NextFu
 
 export async function getSessionAttendee(req:Request, res:Response, next:NextFunction){
     try {
-        const {id} = getIdParamsSchema.parse(req.params);
-        const attendee = await sessionAttendeeService.getSessionAttendee(id);
+        const {attendeeId} = getIdParamsSchema.parse(req.params);
+        const attendee = await sessionAttendeeService.getSessionAttendee(attendeeId);
         return res.status(200).json(attendee);
     } catch (error) {
         next(error);
@@ -33,8 +33,8 @@ export async function createSessionAttendee(req:Request, res:Response, next:Next
 
 export async function deleteSessionAttendee(req:Request, res:Response, next:NextFunction){
     try {
-        const {id} = getIdParamsSchema.parse(req.params);
-        await sessionAttendeeService.deleteSessionAttendee(id);
+        const {attendeeId} = getIdParamsSchema.parse(req.params);
+        await sessionAttendeeService.deleteSessionAttendee(attendeeId);
         return res.sendStatus(204);
     } catch (error) {
         next(error);

@@ -13,8 +13,8 @@ export async function getKitModules(req:Request, res:Response, next:NextFunction
 
 export async function getKitModule(req:Request, res:Response, next:NextFunction){
     try {
-        const {id} = getIdParamsSchema.parse(req.params);
-        const module = await kitModuleService.getKitModule(id);
+        const {moduleId} = getIdParamsSchema.parse(req.params);
+        const module = await kitModuleService.getKitModule(moduleId);
         return res.status(200).json(module);
     } catch (error) {
         next(error);

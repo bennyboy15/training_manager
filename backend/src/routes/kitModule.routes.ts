@@ -4,8 +4,8 @@ import { protectRoute } from "../lib/protectRoute";
 
 const router = Router();
 
-router.get("/", protectRoute, kitModuleController.getKitModule);
-router.get("/:id", protectRoute, kitModuleController.getKitModules);
+router.get("/", protectRoute, kitModuleController.getKitModules);
+router.get("/:moduleId", protectRoute, kitModuleController.getKitModule);
 router.post("/", protectRoute, kitModuleController.createKitModule);
 
 export default router;
