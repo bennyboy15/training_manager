@@ -8,35 +8,49 @@ import { Skeleton } from 'antd';
 
 function DashboardPage() {
 
-  const {data, isLoading, error} = useQuery<DashboardStats>({
+  const { data, isLoading: isLoadingStats, error: isErrorStats, refetch:refetchStats } = useQuery<DashboardStats>({
     queryKey: ["dashboardStats"],
     queryFn: async () => {
       const result = await axiosInstance.get("/stats/dashboard")
       return result.data
-    }
+    },
+    // 1. Consider data "fresh" for 2 minutes to make navigation instant
+    staleTime: 1000 * 60 * 2, 
+    // 2. But if the tab is left open, update it every 5 minutes 
+    refetchInterval: 1000 * 60 * 5,
   });
 
   return (
     <div className="min-h-screen w-screen flex">
-    
+
       <main className="flex-1 flex flex-col p-6 lg:p-10 gap-8">
-        
-        <Header title={"Dashboard Overview"} subtitle="Real-time monitoring of organisational business processes."/>
+
+        <Header title={"Dashboard Overview"} subtitle="Real-time monitoring of organisational business processes." />
 
         {/* STATS SECTION */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {isLoading ? <Skeleton /> :
-          <>
-          <StatCard title="Active Users" value={data?.userCount} trend="+12%" color="blue" icon={"activity-square"}/>
-          <StatCard title="Total Sessions" value={data?.sessionCount} trend="+5%" color="green" icon={"activity-square"}/>
-          <StatCard title="Total Modules" value={data?.moduleCount} trend="-2%" color="orange" icon={"activity-square"}/>
-          </>
-          }
+          {isLoadingStats ? <Skeleton /> :
+            isErrorStats ? (<div className="col-span-full py-10 bg-red-50 border border-red-100 rounded-xl flex flex-col items-center justify-center text-red-600">
+              <p className="font-semibold text-sm">Failed to load statistics.</p>
+              <button
+                onClick={() => refetchStats()}
+                className="mt-2 text-xs underline hover:text-red-800"
+              >
+                Try again
+              </button>
+            </div>) :
+              (
+                <>
+                  <StatCard title="Active Users" value={data?.userCount} trend="+12%" color="blue" icon={"activity-square"} />
+                  <StatCard title="Total Sessions" value={data?.sessionCount} trend="+5%" color="green" icon={"activity-square"} />
+                  <StatCard title="Total Modules" value={data?.moduleCount} trend="-2%" color="orange" icon={"activity-square"} />
+                </>
+              )}
         </section>
 
         {/* DATA VISUALIZATION SECTION */}
         <section className="flex flex-col xl:flex-row gap-6 h-125">
-          
+
           {/* Main Graph/Chart Area */}
           <div className="flex-3 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col">
             <div className="flex justify-between items-center mb-4">
@@ -44,7 +58,7 @@ function DashboardPage() {
               <button className="text-sm text-blue-600 font-semibold hover:underline">View Report</button>
             </div>
             <div className="flex-1 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-400">
-                <ExampleChart/>
+              <ExampleChart />
             </div>
           </div>
 

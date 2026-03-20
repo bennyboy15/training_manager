@@ -20,10 +20,11 @@ function NavBar() {
     <nav className="z-50 w-full min-w-screen bg-white/80 backdrop-blur-lg shadow-sm">
 
       {/* Top Bar */}
-      <div className="flex items-center justify-between px-4 py-3 mx-auto max-w-7xl">
+      <div className="flex items-center justify-between px-4 py-3 mx-auto">
 
         {/* Logo */}
-        <div className="text-lg font-semibold tracking-tight text-gray-800">
+        <div className="flex items-center h-10 gap-2 text-lg font-semibold tracking-tight text-gray-800">
+          <DynamicIcon name="graduation-cap" className="bg-blue-100 rounded-2xl p-1" color="rgba(59, 130, 246, 1)" size={30}/>
           Training Manager
         </div>
 
