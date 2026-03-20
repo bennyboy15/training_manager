@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { DynamicIcon } from "lucide-react/dynamic";
 
 const menuItems = [
@@ -13,8 +13,8 @@ const menuItems = [
 ];
 
 function NavBar() {
-  const [selectedMenu, setSelectedMenu] = useState<number>(1);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <nav className="z-50 w-full min-w-screen bg-white/80 backdrop-blur-lg shadow-sm">
@@ -31,10 +31,10 @@ function NavBar() {
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center gap-2">
           {menuItems.map((item) => {
-            const selected = item.menuID === selectedMenu;
+            const selected = location.pathname === item.navigation;
 
             return (
-              <li key={item.menuID} onClick={() => setSelectedMenu(item.menuID)}>
+              <li key={item.menuID}>
                 <Link
                   to={item.navigation}
                   className={`
@@ -85,13 +85,12 @@ function NavBar() {
       >
         <ul className="flex flex-col px-4 pb-4 gap-1">
           {menuItems.map((item) => {
-            const selected = item.menuID === selectedMenu;
+            const selected = location.pathname === item.navigation;
 
             return (
               <li
                 key={item.menuID}
                 onClick={() => {
-                  setSelectedMenu(item.menuID);
                   setMobileOpen(false);
                 }}
               >
