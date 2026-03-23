@@ -6,7 +6,7 @@ function FiltersBar() {
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex-1 min-w-50">
               <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Filter by Department</label>
-              <select className="w-full bg-slate-50  border-slate-200  rounded-lg text-sm focus:border-primary focus:ring-primary">
+              <select className="w-full bg-slate-50 p-2 border border-slate-400  rounded-lg text-sm focus:border-primary focus:ring-primary">
                 <option>All Departments</option>
                 <option>Engineering</option>
                 <option>Marketing</option>
@@ -16,7 +16,7 @@ function FiltersBar() {
             </div>
             <div className="flex-1 min-w-50">
               <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Filter by Role</label>
-              <select className="w-full bg-slate-50  border-slate-200  rounded-lg text-sm focus:border-primary focus:ring-primary">
+              <select className="w-full bg-slate-50 p-2 border border-slate-400  rounded-lg text-sm focus:border-primary focus:ring-primary">
                 <option>All Roles</option>
                 <option>Senior Developer</option>
                 <option>Product Designer</option>
@@ -25,7 +25,7 @@ function FiltersBar() {
             </div>
             <div className="flex-1 min-w-50">
               <label className="block text-xs font-bold text-slate-500 mb-1 uppercase">Filter by Status</label>
-              <select className="w-full bg-slate-50  border-slate-200  rounded-lg text-sm focus:border-primary focus:ring-primary">
+              <select className="w-full bg-slate-50  p-2 border border-slate-400  rounded-lg text-sm focus:border-primary focus:ring-primary">
                 <option>All Statuses</option>
                 <option>Certified</option>
                 <option>Onboarding</option>

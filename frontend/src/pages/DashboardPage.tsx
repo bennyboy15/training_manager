@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../utils/axios";
 import type { DashboardStats } from "../types/stats";
 import { Skeleton } from 'antd';
+import { Link } from "react-router-dom";
 
 function DashboardPage() {
 
@@ -24,7 +25,7 @@ function DashboardPage() {
     <div className="min-h-screen w-screen flex">
 
       <main className="flex-1 flex flex-col p-6 lg:p-10 gap-8">
-
+        <Link to="/login">LOGIN</Link>
         <Header title={"Dashboard Overview"} subtitle="Real-time monitoring of organisational business processes." />
 
         {/* STATS SECTION */}

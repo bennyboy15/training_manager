@@ -5,10 +5,12 @@ import DashboardPage from "./pages/DashboardPage.tsx";
 import SchedulingPage from "./pages/SchedulingPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx"
 import NavBar from "./components/NavBar.tsx";
-import ModulesPage from "./pages/ModulesPage.tsx";
+import ModulesPage from "./pages/Modules/ModulesPage.tsx";
 import SessionsPage from "./pages/SessionsPage.tsx";
 import EmployeesPage from "./pages/Employees/EmployeesPage.tsx";
 import EmployeesNewPage from "./pages/Employees/EmployeesNewPage.tsx";
+import LoginPage from "./pages/Auth/LoginPage.tsx";
+import ModulesNewPage from "./pages/Modules/ModulesNewPage.tsx";
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
       <div className="mt-16">
         <Routes>
           <Route path="/" element={<DashboardPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/modules" element={<ModulesPage />} />
+          <Route path="/modules/new" element={<ModulesNewPage />} />
           <Route path="/sessions" element={<SessionsPage />} />
           <Route path="/employees" element={<EmployeesPage />} />
           <Route path="/employees/new" element={<EmployeesNewPage />} />
