@@ -27,6 +27,7 @@ function EmployeesPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <Header title={"Employee Directory"} subtitle="Manage training progress for active employees." />
           <div className="flex items-center gap-2">
+            <Link to="/employees/new" className="bg-blue-500 text-white px-4 py-2 shadow-xl font-semibold rounded-xl">New Employee +</Link>
             <EmployeeStatCard title={"Certified"} value={"84%"} />
             <EmployeeStatCard title={"Pending"} value={"16%"} />
           </div>
