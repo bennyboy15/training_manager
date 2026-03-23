@@ -3,6 +3,9 @@ import { Select } from "./Select"
 import { Textarea } from "./Textarea"
 import { Button } from "./Button"
 import { useForm } from "react-hook-form"
+import axiosInstance from "../utils/axios"
+import { useMutation } from "@tanstack/react-query"
+import toast from "react-hot-toast"
 
 type ModuleType = {
     name: string;
@@ -12,9 +15,27 @@ type ModuleType = {
     expiry: number
 }
 
+async function createModule(data: ModuleType) {
+    const res = await axiosInstance.post("/modules", data);
+    return res.data;
+}
+
 function ModuleForm() {
-    const { register, formState: { errors }, handleSubmit, } = useForm<ModuleType>();
-    const onSubmit = (data:ModuleType) => console.log(data);
+    const { register, handleSubmit, } = useForm<ModuleType>();
+    
+    const mutation = useMutation({
+            mutationFn: createModule,
+            onSuccess: () => {
+                toast.success("Successfully created new training module");
+            },
+            onError: () => {
+                toast.error("Failed to crate training modul");
+            }
+        });
+
+    const onSubmit = (data:ModuleType) => {
+        mutation.mutate(data);
+    }
 
     return (
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
