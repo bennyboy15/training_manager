@@ -14,17 +14,17 @@ import ModulesNewPage from "./pages/Modules/ModulesNewPage.tsx";
 import SignupPage from "./pages/Auth/SignupPage.tsx";
 
 function App() {
-const location = useLocation();
+  const location = useLocation();
   const noNavPages = ["/login", "/signup"];
   const showNav = !noNavPages.includes(location.pathname);
 
   return (
     <div className="bg-gray-50">
       {showNav && <div className="fixed top-0 left-0 z-50">
-        <NavBar/>
+        <NavBar />
       </div>
       }
-      <div className={showNav ? "mt-16":""}>
+      <div className={showNav ? "mt-16" : ""}>
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/login" element={<LoginPage />} />

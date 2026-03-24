@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../../components/Header'
 import { DynamicIcon } from 'lucide-react/dynamic'
@@ -67,7 +66,7 @@ function ModulesPage() {
 
                 <div className="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col">
                   <div className="h-40 bg-slate-200 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-primary/10" data-alt="Abstract blue geometric pattern for module header"></div>
+                    <div className="absolute inset-0 bg-linear-to-br from-primary/40 to-primary/10" data-alt="Abstract blue geometric pattern for module header"></div>
                     <div className="absolute top-4 right-4 bg-white/90/90 backdrop-blur rounded-lg px-2 py-1 flex items-center gap-1 text-[10px] font-bold text-primary uppercase border border-primary/20">
                       <span className="material-symbols-outlined text-sm">verified_user</span> Cybersecurity
                     </div>
@@ -96,7 +95,7 @@ function ModulesPage() {
 
                 <div className="group bg-white rounded-xl border-2 border-primary/10 overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col ring-2 ring-primary/5">
                   <div className="h-40 bg-slate-200 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/60 to-transparent z-10"></div>
+                    <div className="absolute inset-0 bg-linear-to-tr from-slate-900/60 to-transparent z-10"></div>
                     <div className="absolute inset-0 bg-primary/20" data-alt="Abstract architectural lines representing engineering kit"></div>
                     <div className="absolute bottom-4 left-4 z-20">
                       <span className="bg-primary text-white text-[10px] font-black uppercase px-2 py-1 rounded">Kit Bundle</span>
@@ -139,7 +138,7 @@ function ModulesPage() {
 
                 <div className="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col">
                   <div className="h-40 bg-slate-200 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/10" data-alt="Green environmental leaves pattern for safety module"></div>
+                    <div className="absolute inset-0 bg-linear-to-br from-green-500/20 to-emerald-500/10" data-alt="Green environmental leaves pattern for safety module"></div>
                     <div className="absolute top-4 right-4 bg-white/90/90 backdrop-blur rounded-lg px-2 py-1 flex items-center gap-1 text-[10px] font-bold text-green-600 uppercase border border-green-500/20">
                       <span className="material-symbols-outlined text-sm">health_and_safety</span> Safety
                     </div>
@@ -168,7 +167,7 @@ function ModulesPage() {
 
                 <div className="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col">
                   <div className="h-40 bg-slate-200 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-amber-500/10" data-alt="Orange professional workspace abstract pattern"></div>
+                    <div className="absolute inset-0 bg-linear-to-br from-orange-500/20 to-amber-500/10" data-alt="Orange professional workspace abstract pattern"></div>
                     <div className="absolute top-4 right-4 bg-white/90/90 backdrop-blur rounded-lg px-2 py-1 flex items-center gap-1 text-[10px] font-bold text-orange-600 uppercase border border-orange-500/20">
                       <span className="material-symbols-outlined text-sm">work</span> Operations
                     </div>
