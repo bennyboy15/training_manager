@@ -1,6 +1,6 @@
 import { Router} from "express";
 import * as employeeController from "../controllers/employee.controller" 
-import { protectRoute } from "../lib/protectRoute";
+import { protectRoute } from "../middleware/protectRoute";
 
 const router = Router();
 

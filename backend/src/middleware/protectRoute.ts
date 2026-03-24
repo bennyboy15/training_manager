@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-export function protectRoute (req: Request, res: Response, next: NextFunction) {
-    // 1. Extract the token from the Authorization header
+export function protectRoute(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -12,18 +11,23 @@ export function protectRoute (req: Request, res: Response, next: NextFunction) {
     const token = authHeader.split(" ")[1];
 
     try {
-        // 2. Verify the token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET) as { userId: string; role: string };
+        const secret = process.env.JWT_SECRET;
+        if (!secret) {
+            throw new Error("JWT_SECRET is not defined in environment variables");
+        }
 
-        // 3. Attach the user data to the request object
+        // Verify the token and cast the result
+        const decoded = jwt.verify(token, secret) as { userId: string; role: string };
+
+        // TypeScript now recognizes req.user thanks to the declaration above
         req.user = {
             id: decoded.userId,
             role: decoded.role
         };
 
-        // 4. Move to the next middleware or controller
         next();
     } catch (error) {
+        console.error("JWT Verification Error:", error);
         return res.status(401).json({ message: "Not authorized, token failed" });
     }
-};
+}
