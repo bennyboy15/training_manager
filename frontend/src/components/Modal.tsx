@@ -1,8 +1,8 @@
-import { forwardRef, useEffect, type DialogHTMLAttributes } from "react";
+import { forwardRef, useEffect, type HTMLAttributes } from "react";
 import { X } from "lucide-react";
 import { cn } from "../utils/cn";
 
-interface ModalProps extends DialogHTMLAttributes<HTMLDialogElement> {
+interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
   onClose: () => void;
   title?: string;
@@ -16,7 +16,7 @@ const sizes = {
   xl: "max-w-4xl",
 };
 
-export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
+export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   ({ open, onClose, title, size = "md", children, className, ...props }, ref) => {
     useEffect(() => {
       const handleEscape = (e: KeyboardEvent) => {
@@ -48,11 +48,13 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 
         {/* Modal */}
         <div
+          ref={ref}
           className={cn(
             "relative bg-white rounded-lg shadow-xl w-full mx-4 transform transition-all",
             sizes[size],
             className
           )}
+          {...props}
         >
           {/* Header */}
           {title && (

@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
-interface Column<T> {
-  key: keyof T;
-  label: string;
-  sortable?: boolean;
-  render?: (value: T[keyof T], row: T) => React.ReactNode;
-}
+export type Column<T extends object> = {
+  [K in keyof T]: {
+    key: K;
+    label: string;
+    sortable?: boolean;
+    render?: (value: T[K], row: T) => React.ReactNode;
+  };
+}[keyof T];
 
-interface SortableTableProps<T> {
+interface SortableTableProps<T extends object> {
   data: T[];
   columns: Column<T>[];
   rowKey: keyof T;
@@ -17,7 +19,7 @@ interface SortableTableProps<T> {
 
 type SortDir = "asc" | "desc" | null;
 
-export default function SortableTable<T extends Record<string, any>>({
+export default function SortableTable<T extends object>({
   data,
   columns,
   rowKey,

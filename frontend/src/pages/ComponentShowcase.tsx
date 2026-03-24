@@ -15,6 +15,7 @@ import {
   SortableTable,
   Textarea
 } from "../components";
+import type { Column } from "../components/SortableTable";
 
 function ComponentShowcase() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,7 +33,7 @@ function ComponentShowcase() {
     { id: 4, name: "Alice Brown", email: "alice@example.com", role: "Developer", status: "Active" },
   ];
 
-  const tableColumns = [
+  const tableColumns: Column<(typeof tableData)[number]>[] = [
     { key: "id", label: "ID" },
     { key: "name", label: "Name" },
     { key: "email", label: "Email" },

@@ -1,5 +1,3 @@
-import React from 'react'
-
 function FiltersBar() {
   return (
     <div className="bg-white  p-4 rounded-xl border border-slate-200  shadow-sm mb-6">

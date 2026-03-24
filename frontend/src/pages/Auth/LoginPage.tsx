@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form'; // Added Controller
 import { useMutation } from '@tanstack/react-query';
 import axiosInstance from '../../utils/axios';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
@@ -102,7 +103,7 @@ const LoginPage: React.FC = () => {
                                     </Checkbox>
                                 )}
                             />
-                            <a href="/forgot">Forgot password</a>
+                            <Link to="/forgot">Forgot password</Link>
                         </div>
 
                         <Button 
@@ -116,7 +117,7 @@ const LoginPage: React.FC = () => {
                         </Button>
 
                         <Text type="secondary">
-                            Don't have an account? <a href="/signup">Signup now!</a>
+                            Don't have an account? <Link to="/signup">Signup now!</Link>
                         </Text>
                     </form>
                 </Space>

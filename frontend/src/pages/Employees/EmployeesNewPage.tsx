@@ -4,6 +4,7 @@ import IconHeader from "../../components/IconHeader"
 import { Divider, Button } from "../../components"
 import { DynamicIcon } from "lucide-react/dynamic"
 import { useState } from "react"
+import type { Column } from "../../components/SortableTable"
 
 const placeholderJobTitles = [
 	{ value: "", label: "", disabled: false },
@@ -58,7 +59,7 @@ const placeholderTrainingData: TrainingModule[] = [
 	},
 ]
 
-const trainingColumns = [
+const trainingColumns: Column<TrainingModule>[] = [
 	{
 		key: "moduleName" as const,
 		label: "Module Name",
@@ -73,7 +74,7 @@ const trainingColumns = [
 		key: "status" as const,
 		label: "Status",
 		sortable: true,
-		render: (value: string) => {
+		render: (value: TrainingModule["status"]) => {
 			const variants = {
 				pending: "secondary",
 				"in-progress": "warning",
