@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input, Button, Checkbox, Card, Typography, Space } from 'antd';
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { Input, Button, Card, Typography, Space } from 'antd';
+import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useForm, Controller } from 'react-hook-form'; // Added Controller
 import { useMutation } from '@tanstack/react-query';
 import axiosInstance from '../../utils/axios';
@@ -8,38 +8,38 @@ import toast from 'react-hot-toast';
 
 const { Title, Text } = Typography;
 
-type LoginValues = {
+type SignupValues = {
+    name: string;
     email: string;
     password: string;
-    remember: boolean;
 }
 
-async function login(data: LoginValues) {
-    const res = await axiosInstance.post("/login", data);
+async function login(data: SignupValues) {
+    const res = await axiosInstance.post("/signup", data);
     return res.data;
 }
 
-const LoginPage: React.FC = () => {
+const SignupPage: React.FC = () => {
 
-    const { control, handleSubmit, formState: { errors } } = useForm<LoginValues>({
+    const { control, handleSubmit, formState: { errors } } = useForm<SignupValues>({
         defaultValues: {
+            name: '',
             email: '',
             password: '',
-            remember: true
         }
     });
 
     const mutation = useMutation({
         mutationFn: login,
         onSuccess: () => {
-            toast.success("Successfully logged in");
+            toast.success("Successfully signed up");
         },
         onError: () => {
-            toast.error("Failed to login. \nPlease check your credentials.");
+            toast.error("Failed to signup.");
         }
     });
 
-    const onSubmit = (data: LoginValues) => {
+    const onSubmit = (data: SignupValues) => {
         mutation.mutate(data);
     }
 
@@ -48,12 +48,31 @@ const LoginPage: React.FC = () => {
             <Card style={{ width: 400, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
                 <Space direction="vertical" size="large" style={{ width: '100%', textAlign: 'center' }}>
                     <div>
-                        <Title level={2} style={{ marginBottom: 0 }}>Welcome Back</Title>
-                        <Text type="secondary">Please login to your account</Text>
+                        <Title level={2} style={{ marginBottom: 0 }}>Welcome!</Title>
+                        <Text type="secondary">Please provide details for your account</Text>
                     </div>
 
                     <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         
+                        {/* name Field */}
+                        <div>
+                            <Controller
+                                name="name"
+                                control={control}
+                                rules={{ required: "Name is required" }}
+                                render={({ field }) => (
+                                    <Input 
+                                        {...field} 
+                                        status={errors.name ? 'error' : ''}
+                                        prefix={<UserOutlined />} 
+                                        placeholder="John Doe" 
+                                        size="large"
+                                    />
+                                )}
+                            />
+                            {errors.name && <div style={{ color: '#ff4d4f', textAlign: 'left', fontSize: '12px' }}>{errors.name.message}</div>}
+                        </div>
+
                         {/* email Field */}
                         <div>
                             <Controller
@@ -92,19 +111,6 @@ const LoginPage: React.FC = () => {
                             {errors.password && <div style={{ color: '#ff4d4f', textAlign: 'left', fontSize: '12px' }}>{errors.password.message}</div>}
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Controller
-                                name="remember"
-                                control={control}
-                                render={({ field: { value, onChange } }) => (
-                                    <Checkbox checked={value} onChange={(e) => onChange(e.target.checked)}>
-                                        Remember me
-                                    </Checkbox>
-                                )}
-                            />
-                            <a href="/forgot">Forgot password</a>
-                        </div>
-
                         <Button 
                             type="primary" 
                             htmlType="submit" 
@@ -112,11 +118,11 @@ const LoginPage: React.FC = () => {
                             block 
                             loading={mutation.isPending}
                         >
-                            Log in
+                            Sign Up
                         </Button>
 
                         <Text type="secondary">
-                            Don't have an account? <a href="/signup">Signup now!</a>
+                            Already have an account? <a href="/login">Login in here!</a>
                         </Text>
                     </form>
                 </Space>
@@ -125,4 +131,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default SignupPage;

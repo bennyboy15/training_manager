@@ -9,7 +9,7 @@ function ModulesPage() {
       <body className="bg-background-light font-display text-slate-900 min-h-screen">
         <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
           <div className="layout-container flex h-full grow flex-col">
-            <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-8">
+            <main className="flex-1 mx-auto w-full px-6 py-8">
 
               <div className="flex flex-wrap justify-between items-end gap-4 mb-8">
                 <Header title="Training Library" subtitle='Centralized management for modules, kits, and role-based training paths.'/>
