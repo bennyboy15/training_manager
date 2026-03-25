@@ -1,11 +1,4 @@
 import { z } from "zod";
-import {
-  UserRole,
-  TrainingType,
-  AssignmentStatus,
-  AttendanceStatus,
-  ResourceType
-} from "@prisma/client";
 
 /* =========================
    ID PARAMS VALIDATION
@@ -17,24 +10,24 @@ export const getIdParamsSchema = z.object({
 /* =========================
    ENUMS (sync with Prisma)
 ========================= */
-
+/*
 export const userRoleSchema = z.nativeEnum(UserRole);
 export const trainingTypeSchema = z.nativeEnum(TrainingType);
 export const assignmentStatusSchema = z.nativeEnum(AssignmentStatus);
 export const attendanceStatusSchema = z.nativeEnum(AttendanceStatus);
 export const resourceTypeSchema = z.nativeEnum(ResourceType);
-
+*/
 
 /* =========================
    AUTH USER
 ========================= */
-export const signupSchema = z.zod.object({
+export const signupSchema = z.object({
     name: z.string().min(2, "Name too short"),
     email: z.string().email("Invalid email format"),
     password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
-export const loginSchema = z.zod.object({
+export const loginSchema = z.object({
     email: z.string().email(),
     password: z.string(),
 });
@@ -50,7 +43,7 @@ export const createUserSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
   email: z.string().email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  role: userRoleSchema.optional()
+  role: z.string().optional()
 });
 export const updateUserSchema = createUserSchema.partial();
 export type CreateUserInput = z.infer<typeof createUserSchema>;
@@ -81,7 +74,7 @@ export const createModuleSchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   durationMinutes: z.number().int().positive().optional(),
-  trainingType: trainingTypeSchema.optional(),
+  trainingType: z.string().optional(),
   expiryMonths: z.number().int().positive().optional(),
   createdById: z.string().uuid()
 });
@@ -118,7 +111,7 @@ export type CreateKitModuleInput = z.infer<typeof createKitModuleSchema>;
 
 export const createAssignmentSchema = z.object({
   dueDate: z.coerce.date().optional(),
-  status: assignmentStatusSchema.optional(),
+  status: z.string().optional(),
   employeeId: z.string().uuid(),
   moduleId: z.string().uuid(),
   assignedById: z.string().uuid()
@@ -153,7 +146,7 @@ export type UpdateSessionInput = Partial<CreateSessionInput>;
 export const createSessionAttendeeSchema = z.object({
   sessionId: z.string().uuid(),
   employeeId: z.string().uuid(),
-  attendanceStatus: attendanceStatusSchema.optional()
+  attendanceStatus: z.string().optional(),
 });
 export type CreateSessionAttendeeInput = z.infer<typeof createSessionAttendeeSchema>;
 
@@ -176,7 +169,7 @@ export type UpdateTrainingRecordInput = Partial<CreateTrainingRecordInput>;
 ========================= */
 
 export const createModuleResourceSchema = z.object({
-  resourceType: resourceTypeSchema,
+  resourceType: z.string().optional(),
   fileUrl: z.string().url(),
   moduleId: z.string().uuid()
 });

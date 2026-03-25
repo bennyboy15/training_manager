@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import * as authService from "../services/auth.service";
-import { loginSchema, signupSchema } from "../schemas/auth.schema";
+import * as authService from "../services/auth.service.js";
+import { loginSchema, signupSchema } from "../schemas/zodSchemas.js";
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
     try {
