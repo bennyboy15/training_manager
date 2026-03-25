@@ -1,4 +1,5 @@
 import type {Dayjs} from "dayjs";
+import type { User } from "./user";
 
 export type TrainingSession = {
   title: string;
@@ -8,4 +9,5 @@ export type TrainingSession = {
   startTime: Dayjs | null;
   endTime: Dayjs | null;
   location: string;
+  attendees: User[]
 }
