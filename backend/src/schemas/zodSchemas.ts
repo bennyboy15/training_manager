@@ -124,20 +124,40 @@ export type UpdateAssignmentInput = Partial<CreateAssignmentInput>;
    SESSION
 ========================= */
 
-export const createSessionSchema = z.object({
+const createSessionBaseSchema = z.object({
   location: z.string().optional(),
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   capacity: z.number().int().positive().optional(),
   moduleId: z.string().uuid(),
   trainerId: z.string().uuid()
-}).refine((data) => data.endTime > data.startTime, {
-  message: "End time must be after start time",
-  path: ["endTime"]
 });
-export const updateSessionSchema = createSessionSchema.partial();
+
+// Important: Zod v4 disallows calling `.partial()` on a schema that already has refinements.
+// So we refine the "create" schema, and apply a conditional refinement to the "update" schema instead.
+export const createSessionSchema = createSessionBaseSchema.refine(
+  (data) => data.endTime > data.startTime,
+  {
+    message: "End time must be after start time",
+    path: ["endTime"],
+  }
+);
+
+export const updateSessionSchema = createSessionBaseSchema
+  .partial()
+  .superRefine((data, ctx) => {
+    // Only enforce the ordering rule when both fields are present.
+    if (data.startTime && data.endTime && data.endTime <= data.startTime) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "End time must be after start time",
+        path: ["endTime"],
+      });
+    }
+  });
+
 export type CreateSessionInput = z.infer<typeof createSessionSchema>;
-export type UpdateSessionInput = Partial<CreateSessionInput>;
+export type UpdateSessionInput = z.infer<typeof updateSessionSchema>;
 
 /* =========================
    SESSION ATTENDEE

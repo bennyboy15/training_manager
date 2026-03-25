@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import * as statsService from "../services/stats.service"
+import * as statsService from "../services/stats.service.js"
 
 export async function getDashboardStats(req: Request, res: Response, next: NextFunction) {
     try {

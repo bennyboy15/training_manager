@@ -16,7 +16,7 @@ type SignupValues = {
 }
 
 async function login(data: SignupValues) {
-    const res = await axiosInstance.post("/signup", data);
+    const res = await axiosInstance.post("/auth/signup", data);
     return res.data;
 }
 

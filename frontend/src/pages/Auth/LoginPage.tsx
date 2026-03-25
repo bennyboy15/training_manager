@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form'; // Added Controller
 import { useMutation } from '@tanstack/react-query';
 import axiosInstance from '../../utils/axios';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
@@ -16,11 +16,12 @@ type LoginValues = {
 }
 
 async function login(data: LoginValues) {
-    const res = await axiosInstance.post("/login", data);
+    const res = await axiosInstance.post("/auth/login", data);
     return res.data;
 }
 
 const LoginPage: React.FC = () => {
+    const navigate = useNavigate();
 
     const { control, handleSubmit, formState: { errors } } = useForm<LoginValues>({
         defaultValues: {
@@ -32,7 +33,10 @@ const LoginPage: React.FC = () => {
 
     const mutation = useMutation({
         mutationFn: login,
-        onSuccess: () => {
+        onSuccess: (data: { token: string }) => {
+            // `frontend/src/utils/axios.ts` reads this key to attach `Authorization: Bearer ...`.
+            localStorage.setItem('token', data.token);
+            navigate('/');
             toast.success("Successfully logged in");
         },
         onError: () => {

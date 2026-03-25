@@ -8,6 +8,13 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
+  // When `baseURL` already contains a path (e.g. `/api/v1`), axios can
+  // treat request URLs starting with `/` as root-relative and drop the base path.
+  // Normalize to keep paths relative to `baseURL`.
+  if (typeof config.url === "string" && config.url.startsWith("/")) {
+    config.url = config.url.slice(1);
+  }
+
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

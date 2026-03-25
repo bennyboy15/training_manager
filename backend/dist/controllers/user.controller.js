@@ -1,0 +1,44 @@
+import * as userService from "../services/user.service";
+import { createUserSchema, getIdParamsSchema, updateUserSchema } from "../schemas/zodSchemas";
+export async function getUsers(req, res, next) {
+    try {
+        const users = await userService.getUsers();
+        res.status(200).json(users);
+    }
+    catch (error) {
+        next(error);
+    }
+}
+export async function getUser(req, res, next) {
+    try {
+        const { id } = getIdParamsSchema.parse(req.params);
+        const user = await userService.getUser(id);
+        if (!user)
+            return res.status(404).json({ message: "User not found" });
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        next(error);
+    }
+}
+export async function createUser(req, res, next) {
+    try {
+        const data = createUserSchema.parse(req.body);
+        const user = await userService.createUser(data);
+        res.status(201).json(user);
+    }
+    catch (error) {
+        next(error);
+    }
+}
+export async function updateUser(req, res, next) {
+    try {
+        const { id } = getIdParamsSchema.parse(req.params);
+        const data = updateUserSchema.parse(req.body);
+        const user = await userService.updateUser(id, data);
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        next(error);
+    }
+}

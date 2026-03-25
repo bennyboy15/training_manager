@@ -1,6 +1,6 @@
 import { Router} from "express";
-import * as statsController from "../controllers/stats.controller" 
-import { protectRoute } from "../middleware/protectRoute";
+import * as statsController from "../controllers/stats.controller.js" 
+import { protectRoute } from "../middleware/protectRoute.js";
 
 const router = Router();
 
