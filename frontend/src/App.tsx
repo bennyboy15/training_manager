@@ -6,12 +6,13 @@ import SchedulingPage from "./pages/SchedulingPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx"
 import NavBar from "./components/NavBar.tsx";
 import ModulesPage from "./pages/Modules/ModulesPage.tsx";
-import SessionsPage from "./pages/SessionsPage.tsx";
+import SessionsPage from "./pages/Sessions/SessionsPage.tsx";
 import EmployeesPage from "./pages/Employees/EmployeesPage.tsx";
 import EmployeesNewPage from "./pages/Employees/EmployeesNewPage.tsx";
 import LoginPage from "./pages/Auth/LoginPage.tsx";
 import ModulesNewPage from "./pages/Modules/ModulesNewPage.tsx";
 import SignupPage from "./pages/Auth/SignupPage.tsx";
+import SessionsNewPage from "./pages/Sessions/SessionsNewPage.tsx";
 
 function App() {
   const location = useLocation();
@@ -26,16 +27,25 @@ function App() {
       }
       <div className={showNav ? "mt-16" : ""}>
         <Routes>
-          <Route path="/" element={<DashboardPage />} />
+          
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+
+          <Route path="/" element={<DashboardPage />} />
+          
           <Route path="/modules" element={<ModulesPage />} />
           <Route path="/modules/new" element={<ModulesNewPage />} />
+          
           <Route path="/sessions" element={<SessionsPage />} />
+          <Route path="/sessions/new" element={<SessionsNewPage />} />
+          
           <Route path="/employees" element={<EmployeesPage />} />
           <Route path="/employees/new" element={<EmployeesNewPage />} />
+          
           <Route path="/schedule" element={<SchedulingPage />} />
+          
           <Route path="/admin" element={<AdminPage />} />
+          
           <Route path="/showcase" element={<ComponentShowcase />} />
         </Routes>
       </div>
