@@ -16,7 +16,6 @@ function EmployeesPage() {
       const result = await axiosInstance.get("/users");
       return result.data;
     },
-
   });
 
   return (

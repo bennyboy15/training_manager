@@ -1,25 +1,30 @@
+// src/api/axiosInstance.ts
 import axios from 'axios';
+import { useAuthStore } from '../stores/authStore';
 
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1',
-  headers: {
-    'Content-Type': 'application/json',
-  },
+const api = axios.create({
+  baseURL: 'https://localhost:5000/api/v1',
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  // When `baseURL` already contains a path (e.g. `/api/v1`), axios can
-  // treat request URLs starting with `/` as root-relative and drop the base path.
-  // Normalize to keep paths relative to `baseURL`.
-  if (typeof config.url === "string" && config.url.startsWith("/")) {
-    config.url = config.url.slice(1);
-  }
-
-  const token = localStorage.getItem('token');
+// Attach token to every request
+api.interceptors.request.use((config) => {
+  const token = useAuthStore.getState().token;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-export default axiosInstance;
+// Global logout if token expires (401 Unauthorized)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      useAuthStore.getState().logout();
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;
